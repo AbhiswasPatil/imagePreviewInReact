@@ -1,30 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import Item from "./Item/Item";
-import styles from "./Items.module.css";
-class Items extends Component {
-  render() {
-    const items = this.props.items;
-    const activeIndex = this.props.activeIndex;
 
-    const itemsList = items.map((item, index) => {
-      const classValue = index === activeIndex ? "item active" : "item";
-      return (
-        <Item
-          title={item.title}
-          class={classValue}
-          previewImage={item.previewImage}
-          clicked={() => this.props.updateActiveindex(index)}
-          key={item.id}
-        />
-      );
-    });
+function Items(props) {
+  const items = props.items;
+  const activeIndex = props.activeIndex;
 
+  const itemsList = items.map((item, index) => {
+    const isClassActive = index === activeIndex ? 1 : 0;
     return (
-      <>
-        <div className={styles.items}>{itemsList}</div>
-      </>
+      <Item
+        title={item.title}
+        isClassActive={isClassActive}
+        previewImage={item.previewImage}
+        clicked={() => props.updateActiveindex(index)}
+        key={item.id}
+      />
     );
-  }
+  });
+
+  return <div>{itemsList}</div>;
 }
 
 export default Items;

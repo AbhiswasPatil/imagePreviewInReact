@@ -1,17 +1,12 @@
-import React, { Component } from "react";
-import "./App.css";
+import React from "react";
 import MainContent from "./containers/MainContent/MainContent";
 
-class App extends Component {
-  state = { selectedElement: null };
-
-  render() {
-    return (
-      <div className="App">
-        <MainContent />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <MainContent />
+    </div>
+  );
 }
 
 export default App;

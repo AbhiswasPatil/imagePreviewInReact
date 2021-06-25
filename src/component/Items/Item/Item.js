@@ -1,11 +1,47 @@
-import React, { Component } from "react";
-import "./Item.css";
-class item extends Component {
-  constructor(props) {
-    super(props);
-    this.titleText = React.createRef();
-  }
-  truncateTitleText(el) {
+import React, { useEffect, useRef } from "react";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  item: {
+    display: "flex",
+    width: "300px",
+    height: "60px",
+    borderRadius: "5px",
+  },
+
+  itemActive: {
+    display: "flex",
+    width: "300px",
+    height: "60px",
+    borderRadius: "5px",
+    backgroundColor: "#2168db",
+    color: "white",
+  },
+
+  img: {
+    boxSizing: "border-box",
+    margin: "5px 5px 5px 5px",
+    objectFit: "cover",
+    width: "50px",
+    height: "50px",
+    borderRadius: "10px",
+  },
+
+  info: {
+    marginLeft: "5px",
+    width: "230px",
+    lineHeight: "60px",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
+});
+function Item(props) {
+  const classes = useStyles();
+  const titleText = useRef(null);
+
+  const truncateTitleText = (el) => {
     if (el.scrollWidth > el.clientWidth) {
       var textData = el.textContent;
       var estimatedChars = Math.floor(
@@ -18,24 +54,22 @@ class item extends Component {
         textData.slice(textData.length - 1 - estimatedLength, textData.length);
       el.textContent = newTextData;
     }
-  }
-  componentDidMount() {
-    console.log(
-      this.titleText.current.scrollWidth,
-      this.titleText.current.clientWidth
-    );
-    this.truncateTitleText(this.titleText.current);
-  }
-  render() {
-    return (
-      <div className={this.props.class} onClick={this.props.clicked}>
-        <img alt={this.props.title} src={this.props.previewImage} />
-        <div className="info" ref={this.titleText}>
-          {this.props.title}
-        </div>
+  };
+
+  useEffect(() => {
+    truncateTitleText(titleText.current);
+  });
+
+  const isItActive = props.isClassActive ? classes.itemActive : classes.item;
+  console.log(isItActive, ":", props.title);
+  return (
+    <Box className={isItActive} onClick={props.clicked}>
+      <img className={classes.img} alt={props.title} src={props.previewImage} />
+      <div className={classes.info} ref={titleText}>
+        {props.title}
       </div>
-    );
-  }
+    </Box>
+  );
 }
 
-export default item;
+export default Item;
