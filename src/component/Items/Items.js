@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Item from "./Item/Item";
-import "./Items.css";
+import styles from "./Items.module.css";
 class Items extends Component {
   render() {
     const items = this.props.items;
@@ -21,7 +21,7 @@ class Items extends Component {
 
     return (
       <>
-        <div className="items">{itemsList}</div>
+        <div className={styles.items}>{itemsList}</div>
       </>
     );
   }
