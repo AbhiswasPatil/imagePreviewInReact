@@ -1,0 +1,9 @@
+.mainContent {
+  display: flex;
+  margin: auto;
+  align-content: center;
+  justify-content: center;
+  width: 1000px;
+  margin-top: 50px;
+  font-family: "Roboto", sans-serif;
+}
